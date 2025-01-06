@@ -1,3 +1,4 @@
+//HomePage.jsx
 import React from 'react';
 import {
   Box,
@@ -6,36 +7,28 @@ import {
   Button,
   Grid,
   Stack,
-  TextField,
   Accordion,
   AccordionSummary,
   AccordionDetails,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
-
-import OngoingProjects from '../components/OngoingProjects'; // Ensure this import is correct.
+import OngoingProjects from '../components/OngoingProjects';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const InvestmentStep = styled(Box)(({ theme }) => ({
-    padding: 24,
-    backgroundColor: '#f5f5f5',
-    borderRadius: 16,
-    height: '100%',
-    transition: 'transform 0.3s ease, box-shadow 0.3s ease', // Added transition for smooth hover effect
-    '&:hover': {
-      transform: 'scale(1.05)', // Slight scaling effect on hover
-      boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)', // Adding shadow on hover
-      cursor : 'pointer', // Change cursor to pointer on hover
-    },
-  }));
-  
-const projects = [
-  { id: 1, title: 'Project 1', image: 'image1.jpg', location: 'Location 1', price: '$100' },
-  { id: 2, title: 'Project 2', image: 'image2.jpg', location: 'Location 2', price: '$200' },
-  { id: 3, title: 'Project 3', image: 'image3.jpg', location: 'Location 3', price: '$300' },
-  { id: 4, title: 'Project 4', image: 'image4.jpg', location: 'Location 4', price: '$400' },
-];
+  padding: 24,
+  backgroundColor: '#f5f5f5',
+  borderRadius: 16,
+  height: '100%',
+  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+  '&:hover': {
+    transform: 'scale(1.05)',
+    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
+    cursor: 'pointer',
+  },
+}));
 
 export default function HomePage() {
   const faqItems = [
@@ -55,8 +48,8 @@ export default function HomePage() {
 
   return (
     <>
-    
       <Box component="main">
+        <Header />
         {/* Hero Section */}
         <Container maxWidth="lg" sx={{ mt: 8, py: 6 }}>
           <Grid container spacing={4}>
@@ -115,10 +108,15 @@ export default function HomePage() {
               </Box>
             </Grid>
           </Grid>
+          <Box sx={{ mt: 4, textAlign: 'left' }}>
+            <Typography variant="h6" color="#1261A0">
+              Investment Starts from $500
+            </Typography>
+          </Box>
         </Container>
 
         {/* How to Invest Section */}
-        <Box sx={{ py: 8, bgcolor: '#fff', mb : 10}}>
+        <Box sx={{ py: 8, bgcolor: '#fff', mb: 10 }}>
           <Container maxWidth="lg">
             <Typography variant="h3" align="center" gutterBottom>
               How to Invest in the Projects?
@@ -127,112 +125,46 @@ export default function HomePage() {
               Discover how simple it is to start investing with us.
             </Typography>
 
-            <Grid container spacing={3}>
-            {[1, 2, 3, 4].map((step, index) => (
-                <Grid item xs={12} sm={6} md={3} key={step}>
-                   <InvestmentStep
-                     sx={{
-                        marginTop: index % 2 !== 0 ? '24px' : '0', // Add margin top for even steps
-                        marginBottom: index % 2 === 0 ? '24px' : '0', // Add margin bottom for odd steps
-                        }}
-            >
-                <Typography variant="h6" gutterBottom>
-            {step}
-        </Typography>
-        <Typography variant="h5" gutterBottom>
-          Crypto Community
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Unprecedented access to real investment projects in the real economy globally
-        </Typography>
-      </InvestmentStep>
-    </Grid>
-  ))}
-</Grid>
-
-          </Container>
-        </Box>
-
-        {/* Investment Options Section */}
-        <OngoingProjects projects={projects} />
-
-        {/* FAQ Section */}
-        <Box sx={{ py: 8 }}>
-          <Container maxWidth="lg">
-            <Typography variant="h3" align="center" gutterBottom>
-              Frequently Asked Questions
-            </Typography>
-
-            <Box sx={{ mt: 4 }}>
-              {faqItems.map((item, index) => (
-                <Accordion key={index} sx={{ mb: 2 }}>
-                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography variant="h6">{item.question}</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography color="text.secondary">{item.answer}</Typography>
-                  </AccordionDetails>
-                </Accordion>
+            <Grid container spacing={4}>
+              {[1, 2, 3, 4].map((step, index) => (
+                <Grid
+                  item
+                  xs={12} // Full width on extra small screens
+                  sm={6} // Two per row on small screens
+                  md={3} // Four per row on medium and larger screens
+                  key={step}
+                >
+                  <InvestmentStep
+                    sx={{
+                      marginTop: { xs: 2, md: index % 2 !== 0 ? '24px' : '0' },
+                      marginBottom: { xs: 2, md: index % 2 === 0 ? '24px' : '0' },
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Typography variant="h6" gutterBottom>
+                      {step}
+                    </Typography>
+                    <Typography variant="h5" gutterBottom align="center">
+                      Crypto Community
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" align="center">
+                      Unprecedented access to real investment projects in the real economy globally
+                    </Typography>
+                  </InvestmentStep>
+                </Grid>
               ))}
-            </Box>
+            </Grid>
           </Container>
         </Box>
 
-        {/* Newsletter Section */}
-        <Box sx={{ py: 8, bgcolor: '#f5f5f5' }}>
-          <Container maxWidth="md">
-            <Box
-              sx={{
-                p: 4,
-                border: '2px solid #1976d2',
-                borderRadius: 2,
-                position: 'relative',
-                bgcolor: '#fff',
-              }}
-            >
-              <Box
-                sx={{
-                  position: 'absolute',
-                  left: 0,
-                  top: 0,
-                  bottom: 0,
-                  width: '4px',
-                  bgcolor: '#1976d2',
-                }}
-              />
-              <Typography variant="h4" align="center" gutterBottom>
-                Join us to learn more about investments and grow with us
-              </Typography>
-              <Typography variant="body1" align="center" color="text.secondary" paragraph>
-                Stay updated with the latest projects.
-              </Typography>
-              <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
-                <TextField
-                  placeholder="Enter your email"
-                  variant="outlined"
-                  sx={{ width: '300px' }}
-                />
-                <Button variant="contained" 
-                sx={{ 
-                    
-                    backgroundColor: 'primary.dark',
-                    color: '#fff',
-                    borderRadius: '10px',
-                    ":hover": {
-                        backgroundColor: 'primary.dark',
-                        color: '#fff',
-                        transform: 'scale(1.1)',
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                    },
-                     }}>
-                  Sign Up
-                </Button>
-              </Box>
-            </Box>
-          </Container>
-        </Box>
+        {/* Ongoing Projects Section */}
+        <OngoingProjects />
+        <Footer />
       </Box>
-     
     </>
   );
 }

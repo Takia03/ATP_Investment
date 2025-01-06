@@ -13,6 +13,7 @@ import {
 import { styled } from '@mui/material/styles';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -104,6 +105,13 @@ export default function OngoingProjects() {
     setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages);
   };
 
+  const navigate = useNavigate();
+
+  const handleViewDetails = (id) => {
+    navigate(`/property/${id}`);
+  };
+  
+  
   const getVisibleProjects = () => {
     const start = currentPage * itemsPerPage.desktop;
     return projects.slice(start, start + itemsPerPage.desktop);
@@ -145,9 +153,30 @@ export default function OngoingProjects() {
                   <Typography variant="body2" color="text.secondary" gutterBottom>
                     {project.location}
                   </Typography>
-                  <Typography variant="h6">
+                  <Typography variant="h6" sx={{ mb: 2 }}>
                     {project.price}
                   </Typography>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Typography variant="body2" color="text.secondary">
+                      Target Achieve: 60%
+                    </Typography>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      size="small"
+                      sx={{
+                        borderRadius: 10,
+                        transition: 'all 0.3s ease',
+                        '&:hover': {
+                          backgroundColor: 'primary.dark',
+                          color: '#fff',
+                        },
+                      }}
+                      onClick={() => handleViewDetails(project.id)}
+                    >
+                      View Details
+                    </Button>
+                  </Box>
                 </CardContent>
               </StyledCard>
             ))}
